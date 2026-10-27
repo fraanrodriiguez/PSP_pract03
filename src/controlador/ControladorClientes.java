@@ -1,10 +1,8 @@
-
 package controlador;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import javax.swing.JOptionPane;
-
 import modelo.Cliente;
 import modelo.GestorCliente;
 import vista.VistaClientes;
@@ -16,23 +14,21 @@ import vista.PanelNuevo;
  * Conecta el modelo con la vista y valida los datos.
  */
 public class ControladorClientes {
-
+    //Atributos
     private final GestorCliente modelo;
     private final VistaClientes vista;
     private final PanelVisualizar visualizar;
     private final PanelNuevo nuevo;
 
-    public ControladorClientes(
-            GestorCliente modelo,
-            VistaClientes vista) {
-
+    //Constructor
+    public ControladorClientes(GestorCliente modelo, VistaClientes vista) {
         this.modelo = modelo;
         this.vista = vista;
 
         visualizar = vista.getPanelVisualizar();
         nuevo = vista.getPanelNuevo();
 
-        // Navegación de clientes.
+        //Navegación de clientes.
         visualizar.addPrimeroListener(e -> {
             modelo.irAlPrimero();
             mostrar();
@@ -53,18 +49,18 @@ public class ControladorClientes {
             mostrar();
         });
 
-        // Borrar el cliente actual.
+        //Borrar el cliente actual.
         visualizar.addBorrarListener(e -> borrarCliente());
 
-        // Menú principal.
+        //Menú principal.
         vista.addVisualizarListener(e -> {
-            vista.mostrarPanel("visualizar");
+            vista.mostrarPanel("Visualizar");
             mostrar();
         });
 
         vista.addNuevoListener(e -> {
             nuevo.limpiar();
-            vista.mostrarPanel("nuevo");
+            vista.mostrarPanel("Nuevo");
         });
 
         vista.addSalirListener(e -> {
@@ -72,28 +68,24 @@ public class ControladorClientes {
             System.exit(0);
         });
 
-        // Formulario de nuevo cliente.
+        //Formulario de nuevo cliente.
         nuevo.addGuardarListener(e -> anadirCliente());
-
         nuevo.addLimpiarListener(e -> nuevo.limpiar());
 
-        // Mostrar el primer cliente si existe alguno.
+        //Muestra el primer cliente si existe alguno.
         mostrar();
     }
 
-    // Muestra el cliente actual.
+    //Métodos
+    //Muestra el cliente actual.
     private void mostrar() {
-
         if (modelo.esVacia()) {
             visualizar.limpiar();
-            visualizar.setNavegacion(
-                false, false, false, false, false
-            );
+            visualizar.setNavegacion(false, false, false, false, false);
             return;
         }
 
         Cliente c = modelo.obtenerClienteActual();
-
         visualizar.mostrarCliente(
             c.getNumero(),
             c.getNombre(),
@@ -104,7 +96,6 @@ public class ControladorClientes {
         );
 
         visualizar.mostrarError("");
-
         visualizar.setNavegacion(
             !modelo.esPrimero(),
             !modelo.esPrimero(),
@@ -114,24 +105,21 @@ public class ControladorClientes {
         );
     }
 
-    // Añade un cliente después de validar los datos.
+    //Añade un cliente después de validar los datos.
     private void anadirCliente() {
 
         try {
-            // Comprobamos el número.
+            //Comprobamos el número.
             int numero = Integer.parseInt(nuevo.getNumero());
-
-            // Comprobamos que el nombre no esté vacío.
+            //Comprobamos que el nombre no esté vacío.
             String nombre = nuevo.getNombre();
-
             if (nombre.isEmpty()) {
                 nuevo.mostrarError("Introduce el nombre.");
                 return;
             }
 
-            // Comprobamos la fecha.
+            //Comprobamos la fecha.
             LocalDate fecha = LocalDate.parse(nuevo.getFecha());
-
             if (fecha.getYear() < 1900 || fecha.getYear() > 2015) {
                 nuevo.mostrarError(
                     "El año debe estar entre 1900 y 2015."
@@ -139,35 +127,32 @@ public class ControladorClientes {
                 return;
             }
 
-            // Comprobamos los puntos.
+            //Comprobamos los puntos.
             float puntos = Float.parseFloat(nuevo.getPuntos());
-
             if (puntos < 0 || puntos > 1000
                     || Float.isNaN(puntos)
                     || Float.isInfinite(puntos)) {
-
                 nuevo.mostrarError(
                     "Los puntos deben estar entre 0 y 1000."
                 );
                 return;
             }
 
-                        // Evitamos números de cliente duplicados.
+            //Evitamos números de cliente duplicados.
             if (modelo.existeNumero(numero)) {
                 nuevo.mostrarError("Ese número de cliente ya existe.");
                 return;
             }
 
-            // Creamos el objeto y lo añadimos al modelo.
+            //Creamos el objeto y lo añadimos al modelo.
             Cliente cliente = new Cliente(
                 numero, nombre, fecha, puntos
             );
 
             modelo.anadirCliente(cliente);
 
-            // Seleccionamos el cliente recién añadido.
+            //Seleccionamos el cliente recién añadido.
             modelo.irAlUltimo();
-
             nuevo.limpiar();
             vista.mostrarPanel("visualizar");
             mostrar();
@@ -184,23 +169,12 @@ public class ControladorClientes {
         }
     }
 
-    // Elimina el cliente seleccionado.
+    //Eliminar el cliente seleccionado.
     private void borrarCliente() {
-
         if (modelo.esVacia()) {
             return;
         }
-
-        int respuesta = JOptionPane.showConfirmDialog(
-            vista,
-            "¿Quieres borrar el cliente actual?",
-            "Confirmar borrado",
-            JOptionPane.YES_NO_OPTION
-        );
-
-        if (respuesta == JOptionPane.YES_OPTION) {
-            modelo.borrarCliente();
-            mostrar();
-        }
+        modelo.borrarCliente();
+        mostrar();
     }
 }

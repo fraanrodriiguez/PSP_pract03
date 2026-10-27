@@ -103,6 +103,7 @@ public class GestorCliente {
         indice = 0;
     }
     
+    //Ver si existe el número de cliente
     public boolean existeNumero(int numero) {
     for (Cliente c : clientes) {
         if (c.getNumero() == numero) {

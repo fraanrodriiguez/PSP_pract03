@@ -10,21 +10,21 @@ import javax.swing.*;
  * Panel que muestra los datos de un cliente.
  */
 public class PanelVisualizar extends JPanel {
-
+    
+    //Atributos
     private final JLabel lblPosicion = new JLabel("", SwingConstants.CENTER);
     private final JLabel lblNumero = new JLabel();
     private final JLabel lblNombre = new JLabel();
     private final JLabel lblFecha = new JLabel();
     private final JLabel lblPuntos = new JLabel();
-
     private final JLabel lblError = new JLabel(" ");
-
     private final JButton btnPrimero = new JButton("Primero");
     private final JButton btnAnterior = new JButton("Anterior");
     private final JButton btnSiguiente = new JButton("Siguiente");
     private final JButton btnUltimo = new JButton("Último");
     private final JButton btnBorrar = new JButton("Borrar");
 
+    //Constructor
     public PanelVisualizar() {
         setLayout(new BorderLayout(10, 10));
 
@@ -62,7 +62,8 @@ public class PanelVisualizar extends JPanel {
         add(inferior, BorderLayout.SOUTH);
     }
 
-    // Muestra los datos recibidos del controlador.
+    //Métodos
+    //Muestra los datos recibidos del controlador.
     public void mostrarCliente(
             int numero,
             String nombre,
@@ -78,7 +79,7 @@ public class PanelVisualizar extends JPanel {
         lblPuntos.setText(String.valueOf(puntos));
     }
 
-    // Limpia los datos cuando no hay clientes.
+    //Limpia los datos cuando no hay clientes.
     public void limpiar() {
         lblPosicion.setText("No hay clientes");
         lblNumero.setText("");
@@ -87,7 +88,7 @@ public class PanelVisualizar extends JPanel {
         lblPuntos.setText("");
     }
 
-    // Activa o desactiva los botones según la posición.
+    //Activa o desactiva los botones según la posición.
     public void setNavegacion(
             boolean primero,
             boolean anterior,
@@ -102,12 +103,12 @@ public class PanelVisualizar extends JPanel {
         btnBorrar.setEnabled(borrar);
     }
 
-    // Muestra un mensaje de error en rojo.
+    //Muestra un mensaje de error en rojo.
     public void mostrarError(String mensaje) {
         lblError.setText(mensaje);
     }
 
-    // Eventos de los botones.
+    //Eventos de los botones.
     public void addPrimeroListener(ActionListener l) {
         btnPrimero.addActionListener(l);
     }

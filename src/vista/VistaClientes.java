@@ -9,34 +9,27 @@ import javax.swing.*;
  * Contiene el menú y los paneles de la aplicación.
  */
 public class VistaClientes extends JFrame {
-
+    
+    //Atributos
     private final CardLayout tarjetas = new CardLayout();
     private final JPanel contenedor = new JPanel(tarjetas);
+    private final PanelVisualizar panelVisualizar = new PanelVisualizar();
+    private final PanelNuevo panelNuevo = new PanelNuevo();
+    private final JMenuItem itemVisualizar = new JMenuItem("Visualizar");
+    private final JMenuItem itemNuevo = new JMenuItem("Nuevo");
+    private final JMenuItem itemSalir = new JMenuItem("Salir");
 
-    private final PanelVisualizar panelVisualizar =
-            new PanelVisualizar();
-
-    private final PanelNuevo panelNuevo =
-            new PanelNuevo();
-
-    private final JMenuItem itemVisualizar =
-            new JMenuItem("Visualizar");
-
-    private final JMenuItem itemNuevo =
-            new JMenuItem("Nuevo");
-
-    private final JMenuItem itemSalir =
-            new JMenuItem("Salir");
-
+    //Constructor
     public VistaClientes() {
-        super("Gestión de clientes");
+        //Nombre de la ventana
+        super("VISUALIAZADOR CLIENTES");
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(550, 330);
         setResizable(false);
         setLocationRelativeTo(null);
 
-        // Creamos el menú.
+        //Creamos el menú.
         JMenuBar barraMenu = new JMenuBar();
         JMenu menu = new JMenu("Clientes");
 
@@ -48,22 +41,23 @@ public class VistaClientes extends JFrame {
         barraMenu.add(menu);
         setJMenuBar(barraMenu);
 
-        // Añadimos los dos paneles al contenedor.
+        //Añadimos los dos paneles al contenedor.
         contenedor.add(panelVisualizar, "visualizar");
         contenedor.add(panelNuevo, "nuevo");
 
         add(contenedor);
 
-        // Al iniciar mostramos el panel de visualización.
+        //Al iniciar mostramos el panel de visualización.
         mostrarPanel("visualizar");
     }
 
-    // Cambia el panel que se muestra.
+    //Cambia el panel que se muestra.
     public void mostrarPanel(String nombre) {
         tarjetas.show(contenedor, nombre);
     }
 
-    // Permite al controlador acceder a los paneles.
+    //Métodos
+    //Permite al controlador acceder a los paneles.
     public PanelVisualizar getPanelVisualizar() {
         return panelVisualizar;
     }
@@ -72,7 +66,7 @@ public class VistaClientes extends JFrame {
         return panelNuevo;
     }
 
-    // Eventos del menú.
+    //Eventos del menú.
     public void addVisualizarListener(ActionListener l) {
         itemVisualizar.addActionListener(l);
     }

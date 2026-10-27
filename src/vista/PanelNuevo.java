@@ -9,17 +9,17 @@ import javax.swing.*;
  * Panel para crear un cliente nuevo.
  */
 public class PanelNuevo extends JPanel {
-
+    
+    //Atributos
     private final JTextField txtNumero = new JTextField();
     private final JTextField txtNombre = new JTextField();
     private final JTextField txtFecha = new JTextField();
     private final JTextField txtPuntos = new JTextField();
-
     private final JLabel lblError = new JLabel(" ");
-
     private final JButton btnGuardar = new JButton("Guardar");
     private final JButton btnLimpiar = new JButton("Limpiar");
 
+    //Constructor
     public PanelNuevo() {
         setLayout(new BorderLayout(10, 10));
 
@@ -43,17 +43,14 @@ public class PanelNuevo extends JPanel {
 
         // El mensaje de error aparecerá en rojo.
         lblError.setForeground(java.awt.Color.RED);
-
         add(campos, BorderLayout.CENTER);
-
         JPanel inferior = new JPanel(new BorderLayout());
         inferior.add(lblError, BorderLayout.NORTH);
         inferior.add(botones, BorderLayout.SOUTH);
-
         add(inferior, BorderLayout.SOUTH);
     }
 
-    // Métodos para leer los datos del formulario.
+    // Métodos 
     public String getNumero() {
         return txtNumero.getText().trim();
     }
@@ -70,7 +67,7 @@ public class PanelNuevo extends JPanel {
         return txtPuntos.getText().trim();
     }
 
-    // Limpia los campos del formulario.
+    //Limpia los campos del formulario.
     public void limpiar() {
         txtNumero.setText("");
         txtNombre.setText("");
@@ -79,12 +76,12 @@ public class PanelNuevo extends JPanel {
         mostrarError("");
     }
 
-    // Muestra errores en rojo.
+    //Muestra errores en rojo.
     public void mostrarError(String mensaje) {
         lblError.setText(mensaje);
     }
 
-    // Eventos de los botones.
+    //Eventos de los botones.
     public void addGuardarListener(ActionListener l) {
         btnGuardar.addActionListener(l);
     }

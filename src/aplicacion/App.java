@@ -11,13 +11,13 @@ public class App {
 
     public static void main(String[] args) {
 
-        // Swing debe iniciarse en su hilo de eventos.
+        //Swing debe iniciarse en su hilo de eventos.
         SwingUtilities.invokeLater(() -> {
 
-            // Creamos el modelo.
+            //Creamos el modelo.
             GestorCliente modelo = new GestorCliente();
 
-            // Añadimos clientes de prueba para que haya datos.
+            //Añadimos clientes de prueba para que haya datos.
             modelo.anadirCliente(new Cliente(1, "Francisco",LocalDate.of(1999, 2, 10),100.0f));
             modelo.anadirCliente(new Cliente(2, "Javier",LocalDate.of(2001, 4, 22),80.0f));
             modelo.anadirCliente(new Cliente(3, "Jorge",LocalDate.of(2006, 9, 30),300.0f));
@@ -27,13 +27,13 @@ public class App {
             modelo.anadirCliente(new Cliente(7, "Luis",LocalDate.of(2000, 1, 27), 50.0f));
             modelo.anadirCliente(new Cliente(8, "Miguel",LocalDate.of(1999, 12, 11),765.0f));
 
-            // Creamos la vista.
+            //Creamos la vista.
             VistaClientes vista = new VistaClientes();
 
-            // Conectamos el modelo y la vista.
+            //Conectamos el modelo y la vista.
             new ControladorClientes(modelo, vista);
 
-            // Mostramos la ventana.
+            //Mostramos la ventana.
             vista.setVisible(true);
         });
     }
